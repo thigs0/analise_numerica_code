@@ -15,7 +15,6 @@ function Cholesky_extern(A)
 
     #Corrige a matriz A
     
-    A[i+1:n, i+1:n] = s[i+1:n, i+1:n];
     A[i+1:n, i+1:n] -= G[i+1:n, 1]*G[i+1:n, 1]';
   end
   
