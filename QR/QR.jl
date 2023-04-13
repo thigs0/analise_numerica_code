@@ -3,6 +3,7 @@ using LinearAlgebra
 function QR_Givens(A)
 
   function Q(l,j,c,s,n)
+    #Já gera a matriz transposta de Givens
     i = Matrix{Float64}(I,n,n);
     i[l, l] = c;
     i[j, j] = c;
@@ -16,7 +17,8 @@ function QR_Givens(A)
   if n != m
     error("A matriz não é quadrada")
   end
-
+  
+  q = I(n);
   for j in 1:n #percorre as colunas
    for i in j+1:n #percorre as linhas
     t1 = A[j, j];
@@ -25,9 +27,10 @@ function QR_Givens(A)
     c = t1/k;
     s = t2/k;
     t = Q(i,j,c,s,n) # função que gera a matriz de rotação com termos seno e cosseno
+    q = t*q;
     A = t*A;
     end
   end
-  return A;
+  return q;
 end
 
