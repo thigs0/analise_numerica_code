@@ -27,5 +27,5 @@ Sempre desenvolvidos em **Julia**
       parametros:
       A → é a matriz que decompomos na Q
 
-      Retorna a matriz G
+      Retorna a matriz G transposta
 
