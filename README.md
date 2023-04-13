@@ -6,6 +6,7 @@ os códigos no geral têm uma breve explicação para implementações e leves t
 Sempre desenvolvidos em **Julia**
 
 **Cholesky**
+
     → Cholesky.jl
       Função Cholesky,
       parametros:
@@ -20,6 +21,7 @@ Sempre desenvolvidos em **Julia**
     Retorna a matriz G
 
 **QR**
+
     → QR_Givens.jl
       Função QR_Givens,
       parametros:
