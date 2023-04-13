@@ -15,10 +15,10 @@ Sempre desenvolvidos em **Julia**
       Retorna a matriz G
 
     → Cholesky_ExternProduct.jl
-    Função chamada Cholesky_extern,
-    parametros:
-    A → é a matriz que queremos queremos gerar G
-    Retorna a matriz G
+      Função chamada Cholesky_extern,
+      parametros:
+      A → é a matriz que queremos queremos gerar G
+      Retorna a matriz G
 
 **QR**
 
