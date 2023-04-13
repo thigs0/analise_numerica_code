@@ -1,6 +1,6 @@
 using LinearAlgebra
 
-function QR(A)
+function QR_Givens(A)
 
   function Q(l,j,c,s,n)
     i = Matrix{Float64}(I,n,n);
