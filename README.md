@@ -25,7 +25,13 @@ Sempre desenvolvidos em **Julia**
     → QR_Givens.jl
       Função QR_Givens,
       parametros:
-      A → é a matriz que decompomos na Q
+      A → é a matriz que decompomos na $Q^t$
 
-      Retorna a matriz G transposta
+      Retorna a matriz Q transposta
 
+    → QR_Householder.jl
+        Função Householder
+        parametros:
+        A → é a matrix que decompomos na Q
+        
+        Retorna a matriz Q transposta
