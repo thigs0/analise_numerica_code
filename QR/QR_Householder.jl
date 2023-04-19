@@ -1,6 +1,6 @@
 using LinearAlgebra
 
-function Househouder(A)
+function Householder(A)
   #= A é a matrix que queremos a r
     
   Return: Retorna a função q que retaciona o sistema
