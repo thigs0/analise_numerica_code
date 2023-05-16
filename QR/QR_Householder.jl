@@ -1,28 +1,61 @@
 using LinearAlgebra
 
-function Householder(A)
-  #= A é a matrix que queremos a r
+function Householder(A, SIGMA::Bool = false)
+  #= A::array é a matrix que queremos a r e ela tem posto cheio
     
-  Return: Retorna a função q que retaciona o sistema
+  SIGMA::bool é um verificador se ele deve retornar o valor daos sigmas como um vetor ou não
+  Return: Retorna a matriz R triangular superior e a função Q que rotaciona o sistema
 =#
-  n,m = size(A);
-  if (n!=m)
-    error("A matriz não é quadrada")
+
+  n,m = size(A); #Obtemos a quantidade de linhas e colunas
+  if (n < m) # Verifica posto
+    error("A matriz não tem posto cheio")
   end
 
-  qt = Matrix{Float64}(I,n,n); # Aqui iremos salvar as transformações
-  
-  for i in 1:n-1 # Percore as n-1 colunas
-    q = Matrix{Float64}(I,n,n);
+  sigma = zeros(m); #Armazenar os valores de sigma
+  Q = Matrix{Float64}(I,n,m); # Aqui iremos salvar as transformações
+  aux = zeros(n,m); # Aqui iremos salvar os u
+
+  for i in 1:m-1 # Percore as m-1 colunas
+    if (i != 1)
+      #Zeramos a linha da matriz A
+      for j in 1:i-1
+         A[j:end, i] = A[j:end, i] - (2/(norm(aux[j:end, j])^2))*aux[j:end, j]*aux[j:end, j]'*A[j:end, i]
+         Q[j:end, i] = Q[j:end, i] - (2/(norm(aux[j:end, j])^2))*aux[j:end, j]*aux[j:end, j]'*Q[j:end, i]
+      end 
+    end
+
     x = A[i:end, i];
-    y = zeros(n-i+1); # corigimos por começar no 1
-    y[1] = -sign(x[1])*norm(x);
-    u = x-y
+    sigma[i] = -sign(x[1])*norm(x);
 
-    q[i:end, i:end] = I(n-i+1) - (2/(norm(u)^2))*u*u'
-    qt = q*qt; #Atualizamos onde é salvo a nossa q
-    A = q*A; #Atualizamos o problema que queremos rotacionar
+    x[1] = x[1]-sigma[i];
+    aux[i:end, i] = x;
+
+    A[i:end, i] = A[i:end, i] - (2/(norm(aux[i:end, i])^2))*aux[i:end, i]*aux[i:end, i]'*A[i:end, i]
+    Q[i:end, i] = Q[i:end, i] - (2/(norm(aux[i:end, i])^2))*aux[i:end, i]*aux[i:end, i]'*Q[i:end, i]
+
   end
 
-  return qt;
+  #Rotacionamos a ultima coluna
+  for j in 1:m-1
+    A[j:end, m] = A[j:end, m] - (2/(norm(aux[j:end, j])^2))*aux[j:end, j]*aux[j:end, j]'*A[j:end, m]
+    Q[j:end, m] = Q[j:end, m] - (2/(norm(aux[j:end, j])^2))*aux[j:end, j]*aux[j:end, j]'*Q[j:end, m]
+  end 
+
+  if (n > m) # Temos que zerar as linhas a mais
+    x = A[m:end, m];
+    display(x)
+    sigma[m] = -sign(x[1])*norm(x);
+
+    x[1] = x[1]-sigma[m];
+    aux[m:end, m] = x;
+    A[m:end, m] = A[m:end, m] - (2/(norm(aux[m:end, m])^2))*aux[m:end, m]*aux[m:end, m]'*A[m:end, m]
+    Q[m:end, m] = Q[m:end, m] - (2/(norm(aux[m:end, m])^2))*aux[m:end, m]*aux[m:end, m]'*Q[m:end, m]
+
+  end
+  if (SIGMA == false)
+    return Q, A;
+  else
+    return Q, A, sigma
+  end
 end
