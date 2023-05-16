@@ -33,5 +33,6 @@ Sempre desenvolvidos em **Julia**
         Função Householder
         parametros:
         A → é a matrix que decompomos na Q
+        SIGMA → é um boolean que dez se retorna o vetor dos sigmas ou não
         
-        Retorna a matriz Q transposta
+        Retorna a matriz Q e R
