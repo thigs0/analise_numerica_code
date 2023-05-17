@@ -20,8 +20,8 @@ function Householder(A, SIGMA::Bool = false)
     if (i != 1)
       #Zeramos a linha da matriz A
       for j in 1:i-1
-         A[j:end, i] = A[j:end, i] - (2/(norm(aux[j:end, j])^2))*aux[j:end, j]*aux[j:end, j]'*A[j:end, i]
-         Q[j:end, i] = Q[j:end, i] - (2/(norm(aux[j:end, j])^2))*aux[j:end, j]*aux[j:end, j]'*Q[j:end, i]
+         A[j:end, i] = A[j:end, i] - (2/(norm(aux[j:end, j])^2))*aux[j:end, j]*aux[j:end, j]'*A[j:end, i];
+         Q[j:end, i] = Q[j:end, i] - (2/(norm(aux[j:end, j])^2))*aux[j:end, j]*aux[j:end, j]'*Q[j:end, i];
       end 
     end
 
@@ -31,26 +31,25 @@ function Householder(A, SIGMA::Bool = false)
     x[1] = x[1]-sigma[i];
     aux[i:end, i] = x;
 
-    A[i:end, i] = A[i:end, i] - (2/(norm(aux[i:end, i])^2))*aux[i:end, i]*aux[i:end, i]'*A[i:end, i]
-    Q[i:end, i] = Q[i:end, i] - (2/(norm(aux[i:end, i])^2))*aux[i:end, i]*aux[i:end, i]'*Q[i:end, i]
+    A[i:end, i] = A[i:end, i] - (2/(norm(aux[i:end, i])^2))*aux[i:end, i]*aux[i:end, i]'*A[i:end, i];
+    Q[i:end, i] = Q[i:end, i] - (2/(norm(aux[i:end, i])^2))*aux[i:end, i]*aux[i:end, i]'*Q[i:end, i];
 
   end
 
   #Rotacionamos a ultima coluna
   for j in 1:m-1
-    A[j:end, m] = A[j:end, m] - (2/(norm(aux[j:end, j])^2))*aux[j:end, j]*aux[j:end, j]'*A[j:end, m]
-    Q[j:end, m] = Q[j:end, m] - (2/(norm(aux[j:end, j])^2))*aux[j:end, j]*aux[j:end, j]'*Q[j:end, m]
+    A[j:end, m] = A[j:end, m] - (2/(norm(aux[j:end, j])^2))*aux[j:end, j]*aux[j:end, j]'*A[j:end, m];
+    Q[j:end, m] = Q[j:end, m] - (2/(norm(aux[j:end, j])^2))*aux[j:end, j]*aux[j:end, j]'*Q[j:end, m];
   end 
 
   if (n > m) # Temos que zerar as linhas a mais
     x = A[m:end, m];
-    display(x)
     sigma[m] = -sign(x[1])*norm(x);
 
     x[1] = x[1]-sigma[m];
     aux[m:end, m] = x;
-    A[m:end, m] = A[m:end, m] - (2/(norm(aux[m:end, m])^2))*aux[m:end, m]*aux[m:end, m]'*A[m:end, m]
-    Q[m:end, m] = Q[m:end, m] - (2/(norm(aux[m:end, m])^2))*aux[m:end, m]*aux[m:end, m]'*Q[m:end, m]
+    A[m:end, m] = A[m:end, m] - (2/(norm(aux[m:end, m])^2))*aux[m:end, m]*aux[m:end, m]'*A[m:end, m];
+    Q[m:end, m] = Q[m:end, m] - (2/(norm(aux[m:end, m])^2))*aux[m:end, m]*aux[m:end, m]'*Q[m:end, m];
 
   end
   if (SIGMA == false)
