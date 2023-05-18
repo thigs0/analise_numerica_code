@@ -13,7 +13,7 @@ function Householder(A, SIGMA::Bool = false)
   end
 
   sigma = zeros(m); #Armazenar os valores de sigma
-  Q = Matrix{Float64}(I,n,m); # Aqui iremos salvar as transformações
+  Q = Matrix{Float64}(I,n,n); # Aqui iremos salvar as transformações
   aux = zeros(n,m); # Aqui iremos salvar os u
 
   for i in 1:m-1 # Percore as m-1 colunas
